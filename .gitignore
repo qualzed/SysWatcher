@@ -1,0 +1,4 @@
+src/ui/core_ui.pu
+src/ui/history.py
+run.sh
+**__pycache__
