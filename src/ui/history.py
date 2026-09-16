@@ -39,14 +39,17 @@ def resetUsageHistory():
         dpg.fit_axis_data("y_axis")
 
 def drawUsageHistory(UsagePercent: int):
-    if len(x_data) > 100:
-        x_data.pop(0)
-        y_data.pop(0)
+    try:
+        if len(x_data) > 100:
+            x_data.pop(0)
+            y_data.pop(0)
 
-    x_data.append(x_data[-1] + 1)
-    y_data.append(UsagePercent)
+        x_data.append(x_data[-1] + 1)
+        y_data.append(UsagePercent)
 
-    dpg.set_value("line_tag", [x_data, y_data])
+        dpg.set_value("line_tag", [x_data, y_data])
 
-    dpg.fit_axis_data("x_axis")
-    dpg.fit_axis_data("y_axis")
+        dpg.fit_axis_data("x_axis")
+        dpg.fit_axis_data("y_axis")
+    except:
+        pass
