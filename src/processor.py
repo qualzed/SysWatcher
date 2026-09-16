@@ -9,16 +9,15 @@ CPU_LogicalCores: int = psutil.cpu_count(logical=True)
 
 def getProcessorData(): # here are only dynamic values
     global CPU_Usage, CPU_Frequency
-    CPU_Usage = psutil.cpu_percent(interval=1) # CPU usage in percents
+    CPU_Usage = psutil.cpu_percent(interval=0.5) # CPU usage in percents
     CPU_Frequency = psutil.cpu_freq()
 
-def collectProcessorData(static: bool):
+def collectProcessorData(static: bool = False):
     if static:
         device.clearConsole()
         print(f"CPU Usage: {CPU_Usage} / 100 % {graphic.drawBar(CPU_Usage)}")
     else:
         while True:
-            time.sleep(0.3)
             getProcessorData()
             device.clearConsole()
             print(f"CPU Usage: {CPU_Usage} / 100 % {graphic.drawBar(CPU_Usage)}")

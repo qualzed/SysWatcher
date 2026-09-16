@@ -13,7 +13,7 @@ def getMemoryData():
     TotalMemory = f"{memory.total / (1024**3):.2f}"
     AvailableMemory = f"{memory.available / (1024**3):.2f}"
 
-def collectMemoryData(static: bool): # Static or dynamic
+def collectMemoryData(static: bool = False): # Static or dynamic
     if static:
         device.clearConsole()
         print(f"RAM Usage: {MemoryUsage} / 100 % {graphic.drawBar(MemoryUsage)}\n{AvailableMemory} / {TotalMemory} GB")
