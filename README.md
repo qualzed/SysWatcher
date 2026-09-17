@@ -1,4 +1,4 @@
-<center>
+<div align="center">
 
 # SysWatcher
 ![python](https://img.shields.io/badge/python-3.14.7-brightgreen?style=for-the-badge)
@@ -22,3 +22,5 @@ nuitka 4.2.1
 colorama 0.4.6  
 dearpygui 2.3.1  
 psutil 7.2.2
+
+</div>
