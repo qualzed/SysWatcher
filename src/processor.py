@@ -1,6 +1,6 @@
 import psutil, time
 from colorama import Fore
-from src import device, graphic
+from src import device
 
 CPU_Usage = None # CPU usage in percents
 CPU_Frequency = None
@@ -11,16 +11,6 @@ def getProcessorData(): # here are only dynamic values
     global CPU_Usage, CPU_Frequency
     CPU_Usage = psutil.cpu_percent(interval=0.5) # CPU usage in percents
     CPU_Frequency = psutil.cpu_freq()
-
-def collectProcessorData(static: bool = False):
-    if static:
-        device.clearConsole()
-        print(f"CPU Usage: {CPU_Usage} / 100 % {graphic.drawBar(CPU_Usage)}")
-    else:
-        while True:
-            getProcessorData()
-            device.clearConsole()
-            print(f"CPU Usage: {CPU_Usage} / 100 % {graphic.drawBar(CPU_Usage)}")
 
 def initializeProcessorData():
     try:
@@ -33,6 +23,3 @@ def initializeProcessorData():
             print(f"Warning! Physical cores may not be found! {CPU_PhysicalCores=}")
     except Exception as e:
         device.stopCritical(e)
-        
-if __name__ == "__main__":
-    collectProcessorData(static=False)

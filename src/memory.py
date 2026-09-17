@@ -1,6 +1,6 @@
 import psutil, time
 from colorama import Fore, Back
-from src import device, graphic
+from src import device
 
 MemoryUsage = None
 TotalMemory = None
@@ -15,17 +15,6 @@ def getMemoryData():
     AvailableMemory = f"{memory.available / (1024**3):.2f}"
     UsedMemory = f"{memory.used / (1024**3):.2f}"
 
-def collectMemoryData(static: bool = False): # Static or dynamic
-    if static:
-        device.clearConsole()
-        print(f"RAM Usage: {MemoryUsage} / 100 % {graphic.drawBar(MemoryUsage)}\n{UsedMemory} / {TotalMemory} GB")
-    else:
-        while True:
-            time.sleep(1)
-            device.clearConsole()
-            getMemoryData()
-            print(f"RAM Usage: {MemoryUsage} / 100 % {graphic.drawBar(MemoryUsage)}\n{UsedMemory} / {TotalMemory} GB")
-
 def initializeMemoryData():
     try:
         getMemoryData()
@@ -37,6 +26,3 @@ def initializeMemoryData():
             print(f"Warning! Available memory may not be found! {AvailableMemory=}")
     except Exception as e:
         device.stopCritical(e)
-
-if __name__ == "__main__":
-    collectMemoryData(static=False)
