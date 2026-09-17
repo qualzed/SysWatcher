@@ -5,24 +5,26 @@ from src import device, graphic
 MemoryUsage = None
 TotalMemory = None
 AvailableMemory = None
+UsedMemory = None
 
 def getMemoryData():
     memory = psutil.virtual_memory()
-    global MemoryUsage, TotalMemory, AvailableMemory
+    global MemoryUsage, TotalMemory, AvailableMemory, UsedMemory
     MemoryUsage = memory.percent
     TotalMemory = f"{memory.total / (1024**3):.2f}"
     AvailableMemory = f"{memory.available / (1024**3):.2f}"
+    UsedMemory = f"{memory.used / (1024**3):.2f}"
 
 def collectMemoryData(static: bool = False): # Static or dynamic
     if static:
         device.clearConsole()
-        print(f"RAM Usage: {MemoryUsage} / 100 % {graphic.drawBar(MemoryUsage)}\n{AvailableMemory} / {TotalMemory} GB")
+        print(f"RAM Usage: {MemoryUsage} / 100 % {graphic.drawBar(MemoryUsage)}\n{UsedMemory} / {TotalMemory} GB")
     else:
         while True:
             time.sleep(1)
             device.clearConsole()
             getMemoryData()
-            print(f"RAM Usage: {MemoryUsage} / 100 % {graphic.drawBar(MemoryUsage)}\n{AvailableMemory} / {TotalMemory} GB")
+            print(f"RAM Usage: {MemoryUsage} / 100 % {graphic.drawBar(MemoryUsage)}\n{UsedMemory} / {TotalMemory} GB")
 
 def initializeMemoryData():
     try:

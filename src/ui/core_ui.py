@@ -11,10 +11,10 @@ class UI:
         self.monitor_thread = None
 
         dpg.create_context()
-        dpg.create_viewport(title="SysWatcher", width=595, height=465, decorated=True)
+        dpg.create_viewport(title="SysWatcher", width=600, height=500, decorated=True)
         dpg.setup_dearpygui()
 
-        with dpg.window(label="SysWatcher", width=600, height=400, tag="main_window", no_title_bar=True) as self.main_win:
+        with dpg.window(label="SysWatcher", width=600, height=500, tag="main_window", no_title_bar=True) as self.main_win:
             dpg.add_button(label="CPU", callback=lambda: self.drawHistory(type=1))
             dpg.add_button(label="RAM", callback=lambda: self.drawHistory(type=2))
             
@@ -46,7 +46,7 @@ class UI:
 
                 elif self.historyType == 2:
                     memory.getMemoryData()
-                    history.drawUsageHistory(memory.MemoryUsage)
+                    history.drawUsageHistory(memory.MemoryUsage, memory.UsedMemory, memory.TotalMemory, memory.AvailableMemory)
                     time.sleep(0.5)
 
     def sendCloseHistory(self):
