@@ -63,7 +63,7 @@ class UI:
                 return
         else:
             self.historyIsActive = False
-            time.sleep(0.35) # waiting for the thread is terminated
+            time.sleep(0.5) # waiting for the thread is terminated
             self.sendCloseHistory()
 
         self.historyType = type
