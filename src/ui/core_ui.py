@@ -2,11 +2,11 @@ import dearpygui.dearpygui as dpg
 import threading
 import time
 from src.ui import history, windows
-from src import processor, memory
+from src import processor, memory, crashdetect
 
 class UI:
     def __init__(self):
-        self.historyIsActive = False
+        self.historyIsActive: bool = False
         self.historyType = None
         self.monitor_thread = None
 
@@ -50,7 +50,6 @@ class UI:
                     time.sleep(0.5)
 
     def sendCloseHistory(self):
-        self.historyIsActive = False
         history.resetUsageHistory()
         history.shutdownHistoryWindow()
 
@@ -58,14 +57,16 @@ class UI:
         if not history.historyWindowIsInitialized:
             try:
                 history.initializeHistoryWindow()
+                self.historyIsActive = True
             except Exception as e:
-                print(e)
+                crashdetect.crashDetector().createCrashLog(e)
                 return
         else:
+            self.historyIsActive = False
+            time.sleep(0.35) # waiting for the thread is terminated
             self.sendCloseHistory()
 
         self.historyType = type
-        self.historyIsActive = True
 
 def initializationUI():
     app = UI()

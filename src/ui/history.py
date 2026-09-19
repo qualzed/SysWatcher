@@ -1,4 +1,6 @@
 import dearpygui.dearpygui as dpg
+from src import crashdetect
+from src.ui import core_ui
 
 x_data = [0]
 y_data = [0.0]
@@ -14,7 +16,7 @@ def initializeHistoryWindow():
             dpg.add_plot_axis(dpg.mvYAxis, label="Usage in percents", tag="y_axis")
             dpg.add_line_series(x_data, y_data, label="Usage history", parent="y_axis", tag="line_tag")
 
-        dpg.add_text("0 / 100", tag="generalUsage")
+        dpg.add_text("0 / 100", tag="generalUsage") 
         dpg.add_text("", tag="memoryUsage") # Memory: {gbUsage} GB / {gbTotal} GB"
         dpg.add_text("", tag="memoryAvailable") # Available memory: {gbAvailable} GB
 
@@ -61,5 +63,6 @@ def drawUsageHistory(UsagePercent: int, gbUsage: float = 0.0, gbTotal: float = 0
             dpg.set_value("memoryUsage", f"Memory: {gbUsage} GB / {gbTotal} GB")
             dpg.set_value("memoryAvailable", f"Available memory: {gbAvailable} GB")
 
-    except:
+    except Exception as e:
+        crashdetect.crashDetector().createCrashLog(e)
         pass
